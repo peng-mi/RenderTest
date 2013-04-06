@@ -12,22 +12,16 @@
 #include <time.h>
 #include "PerformanceTimer.h"
 
-struct Edge
+struct Element
 {
 	unsigned int *indice;
 	float *vertex_ptr;
 };
 
-struct Triangle
-{
-	float *vertex_ptr;
-	unsigned int *indice;
-};
 
-
-Edge vertex_ptr;
-Edge edge_ptr;
-Triangle triangle_ptr;
+Element vertex_ptr;
+Element edge_ptr;
+Element triangle_ptr;
 unsigned int number_elements;
  
 
