@@ -150,7 +150,7 @@ void generateData()
 			vertex_ptr.vertex_ptr[3*i] = (float)rand()/(float)RAND_MAX;
 			vertex_ptr.vertex_ptr[3*i+1] = (float)rand()/(float)RAND_MAX;
 			vertex_ptr.vertex_ptr[3*i+2] = 0.0f;
-			vertex_ptr.indice[i] = rand()%(number_elements/3);
+			vertex_ptr.indice[i] = i;
 			 
 		}
 	}
@@ -217,7 +217,6 @@ GLuint createPoint()
 
 	if(point_type == 2)
 	{
-		glEnable( GL_POINT_SPRITE ); 
 		glEnable( GL_POINT_SMOOTH );
 		glEnable( GL_BLEND );
 		glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
@@ -348,13 +347,12 @@ void renderScene(void) {
 		{
 			if(point_type == 2)
 			{
-				glEnable( GL_POINT_SPRITE ); // GL_POINT_SPRITE_ARB if you're
 				glEnable( GL_POINT_SMOOTH );
 				glEnable( GL_BLEND );
 				glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 				glPointSize( 6.0 );
 			}
-			glDrawElements(GL_POINT, number_elements, GL_UNSIGNED_INT, NULL);
+			glDrawElements(GL_POINTS, number_elements, GL_UNSIGNED_INT, NULL);
 		}
 		else if(test_type ==2)
 		{
@@ -485,10 +483,12 @@ int main(int argc, char **argv)
 	glutInitWindowSize(width,height);
 	glutCreateWindow("Display Test");
 
+
+	atexit (freeData);
 	InitParameter();
 	generateData();
 	InitGL();
-	atexit (freeData);
+	
 
 	glutDisplayFunc(renderScene);
 	glutIdleFunc(renderScene);
